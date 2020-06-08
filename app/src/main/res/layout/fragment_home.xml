@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2018, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.yongji.weatherzip.homepage.WeatherViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        tools:context="com.yongji.weatherzip.MainActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="16dp"
+            android:text= "@string/zipcode"/>
+
+        <ImageView
+            android:id="@+id/weather_image_view"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="16dp"
+            app:imageUrl="@{viewModel.weatherResponse.observations.location.get(0).observation.get(0).iconLink + `?apiKey=ZFErCZF5Gk7zCvnL6CsLGxSjD1oIHYdg-FFTAa9apsM`}"/>
+
+        <TextView
+            android:id="@+id/city_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:text="@{viewModel.weatherResponse.observations.location.get(0).observation.get(0).city}" />
+
+        <TextView
+            android:id="@+id/state_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:text="@{viewModel.weatherResponse.observations.location.get(0).observation.get(0).state}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/current_temperature"
+             />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@{viewModel.weatherResponse.observations.location.get(0).observation.get(0).temperature +` °C`}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:paddingTop="16dp"
+            android:textSize="16sp"
+            android:text="@{viewModel.weatherResponse.observations.location.get(0).observation.get(0).description}"/>
+
+    </LinearLayout>
+</layout>
