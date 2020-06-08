@@ -30,11 +30,16 @@ interface WeatherAPIService {
     /**
      * Returns a Coroutine [Deferred] [WeatherResponse] which can be fetched with await() if
      * in a Coroutine scope.
-     * The @GET annotation indicates that the "current.json" endpoint will be requested with the GET
+     * The @GET annotation indicates that the "report.json" endpoint will be requested with the GET
      * HTTP method
      */
-    @GET("report.json?product=observation&zipcode=94538&oneobservation=true&apiKey=ZFErCZF5Gk7zCvnL6CsLGxSjD1oIHYdg-FFTAa9apsM")
-    fun getWeatherResponse(): Deferred<WeatherResponse>
+    @GET("report.json")
+    fun getWeatherResponse(
+        @Query("product") product: String,
+        @Query("zipcode") zipcode: String,
+        @Query("oneobservation") oneobservation: String,
+        @Query("apiKey") apiKey: String
+    ): Deferred<WeatherResponse>
 }
 
 /**

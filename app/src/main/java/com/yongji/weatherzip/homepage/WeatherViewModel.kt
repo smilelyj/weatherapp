@@ -1,11 +1,9 @@
 package com.yongji.weatherzip.homepage
 
-import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yongji.weatherzip.R
 import com.yongji.weatherzip.network.WeatherApi
 import com.yongji.weatherzip.network.WeatherResponse
 import kotlinx.coroutines.CoroutineScope
@@ -35,31 +33,23 @@ class WeatherViewModel : ViewModel() {
 
 
     /**
-     * Call getTWeather() on init so we can display result immediately.
+     * Call getWeather() on init so we can display result immediately.
      */
     init {
-        print("city")
-        getTWeather()
+        getWeather()
     }
 
-    private fun getTWeather() {
+    private fun getWeather() {
         coroutineScope.launch {
-            var getWeatherDeferred2 = WeatherApi.retrofitService.getWeatherResponse()
-
-            Log.d("Tag",getWeatherDeferred2.await().toString() )
-
+            var getWeatherDeferred2 = WeatherApi.retrofitService.getWeatherResponse("observation", "94538", "true", "ZFErCZF5Gk7zCvnL6CsLGxSjD1oIHYdg-FFTAa9apsM")
             try {
                 _status.value = ApiStatus.LOADING
                 val listResult = getWeatherDeferred2.await()
-                Log.d("Tag",getWeatherDeferred2.await().toString() )
 
                 _status.value = ApiStatus.DONE
                 _response.value = listResult
 
             } catch (e: Exception) {
-                Log.d("TAG", "error city")
-
-                Log.d("Tag",e.toString() )
                 _status.value = ApiStatus.ERROR
                 _response.value = null
             }

@@ -1,6 +1,5 @@
 package com.yongji.weatherzip.network
 
-import android.net.Uri
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
@@ -25,7 +24,6 @@ data class Location(
     val observation: List<Observation>
 ) : Parcelable
 
-
 @Parcelize
 data class Observation(
     @Json(name = "city") val city: String,
@@ -33,6 +31,4 @@ data class Observation(
     @Json(name = "iconLink") val iconLink: String,
     @Json(name = "temperature") val temperature: String,
     @Json(name = "description") val description: String
-
-
 ) : Parcelable
